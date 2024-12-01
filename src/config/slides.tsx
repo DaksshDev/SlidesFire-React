@@ -1093,7 +1093,7 @@ npm run dev`}</code>
           className="max-w-lg mx-auto text-center"
         >
           <motion.a
-            href="https://github.com/DaksshDev/FireSlides"
+            href="https://github.com/DaksshDev/SlidesFire-React"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
@@ -1210,7 +1210,7 @@ npm run dev`}</code>
           </p>
           <div className="mt-12 space-y-2">
             <motion.a
-              href="https://github.com/DaksshDev/SlidesFire-React-Sample-Presentation"
+              href="https://github.com/DaksshDev/SlidesFire-React"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"

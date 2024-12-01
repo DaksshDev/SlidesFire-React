@@ -200,4 +200,27 @@ FireSlides offers two display modes:
    - Can be toggled on/off at any time
 
 **Best Practice:** Design slides to fit within viewport when using fixed mode for the most professional presentation experience.
+
+## 🎪 Examples
+
+See FireSlides in action with these demo presentations:
+
+### 1. Feature Demo
+[slidesfire.netlify.app](https://slidesfire.netlify.app/)
+- Comprehensive showcase of FireSlides features
+- Animation examples
+- Interactive components
+- Code snippets and documentation
+- Perfect for developers to explore capabilities
+
+### 2. Civics Project
+[fireslides-demo.netlify.app](https://fireslides-demo.netlify.app/)
+- The original presentation that inspired FireSlides
+- Real-world example of a school project
+- Shows how coding can make learning more engaging
+- Demonstrates practical application in education
+
+> 💡 These examples show how FireSlides can be used for both technical documentation and educational content, making presentations more interactive and engaging!
+
+---
 ```
