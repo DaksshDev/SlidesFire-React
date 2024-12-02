@@ -3,12 +3,15 @@ import {
   Github, Heart, ExternalLink, Link, BookOpen, Code2,
   Image as ImageIcon, Sparkles, Palette, Stars, 
   Lightbulb, Rocket, Zap, Camera, Wand2, ZoomIn, ZoomOut, Settings2,
-  ScrollText
+  ScrollText, Lock
 } from 'lucide-react';
 import { AnimatedList } from '@/components/Presentation/AnimatedList';
 import { cn } from "@/lib/utils";
 import confetti from 'canvas-confetti';
 import { useState } from 'react';
+import { SetPasswordModal } from '@/components/Presentation/SetPasswordModal';
+import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 // Define reusable animation variants
 const fadeInUp = {
@@ -299,7 +302,10 @@ type SlideProps = {
   setScrollEnabled?: (enabled: boolean) => void;  // Make optional
 };
 
-// Update slides array to handle optional props
+// Add a consistent gradient class for all titles
+const titleGradientClass = "bg-gradient-to-r from-orange-400 to-pink-500 text-transparent bg-clip-text";
+
+// Update the slides array to use this gradient for all titles
 export const slides = [
   // Slide 1: Welcome
   {
@@ -323,7 +329,7 @@ export const slides = [
         <motion.div {...scaleIn}>
           <Github className="w-24 h-24 mx-auto text-primary" />
         </motion.div>
-        <motion.h1 {...fadeInUp} className="text-6xl font-bold bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h1 {...fadeInUp} className={cn("text-6xl font-bold", titleGradientClass)}>
           Welcome to FireSlides
         </motion.h1>
         <motion.p
@@ -339,7 +345,7 @@ export const slides = [
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
-          className="mt-8 p-4 bg-primary/10 rounded-xl max-w-lg mx-auto backdrop-blur-sm border border-primary/20"
+          className="mt-8 p-4 bg-primary/10 rounded-xl max-w-lg mx-auto backdrop-blur-sm border border-primary/20 z-[100]"
         >
           <p className="text-sm text-muted-foreground">
             <span className="font-semibold text-primary">Pro Tip:</span> Press H to toggle controls visibility, 
@@ -356,8 +362,11 @@ export const slides = [
     id: 2,
     content: (
       <div className="space-y-8">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
-          Key Features
+        <motion.h2 
+          {...fadeInUp} 
+          className={cn("text-4xl font-bold mb-8", titleGradientClass)}
+        >
+          Features & Capabilities
         </motion.h2>
         <div className="grid grid-cols-2 gap-12">
           <motion.div
@@ -412,7 +421,7 @@ export const slides = [
     id: 3,
     content: (
       <div className="space-y-8">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Creating Slides
         </motion.h2>
         <div className="grid grid-cols-2 gap-8">
@@ -462,7 +471,7 @@ export const slides = [
     id: 4,
     content: (
       <div className="space-y-8">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Animation Examples
         </motion.h2>
         <div className="grid grid-cols-3 gap-6">
@@ -549,7 +558,7 @@ export const slides = [
     id: 5,
     content: (
       <div className="space-y-8">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Customizing the Watermark
         </motion.h2>
         <div className="grid grid-cols-2 gap-8">
@@ -606,7 +615,7 @@ export const slides = [
     id: 6,
     content: (
       <div className="space-y-12">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Typography Examples
         </motion.h2>
         <div className="grid grid-cols-2 gap-8">
@@ -655,7 +664,7 @@ export const slides = [
     id: 7,
     content: (
       <div className="space-y-12">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Interactive Elements
         </motion.h2>
         <div className="grid grid-cols-3 gap-8">
@@ -731,7 +740,7 @@ export const slides = [
     id: 8,
     content: (
       <div className="space-y-12">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Working with Images
         </motion.h2>
         <div className="grid grid-cols-2 gap-8">
@@ -798,7 +807,7 @@ export const slides = [
     id: 9,
     content: (
       <div className="space-y-12">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Icons & Effects
         </motion.h2>
         <div className="grid grid-cols-3 gap-6">
@@ -895,47 +904,59 @@ export const slides = [
   {
     id: 10,
     content: (
-      <div className="space-y-12">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
-          Fully Customizable
+      <div className="space-y-12 text-center">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
+          Password Protection
         </motion.h2>
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-2xl mx-auto text-center space-y-4"
+          className="max-w-2xl mx-auto space-y-8"
         >
-          <p className="text-xl text-muted-foreground">
-            FireSlides is built to be extended. Add your own components, animations, and interactive features!
-          </p>
-        </motion.div>
+          <div className="bg-card/50 backdrop-blur-sm p-8 rounded-xl border border-border/50">
+            <h3 className="text-2xl font-semibold mb-4">How to Set Up Password</h3>
+            <pre className="text-sm bg-background/50 p-4 rounded-lg overflow-x-auto mb-6">
+              <code>{`// In your App.tsx or a separate config file
+const PRESENTATION_PASSWORD = 'your_password_here';
 
-        {/* Random Word Generator Demo */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-lg mx-auto bg-card/50 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-border/50"
-        >
-          <RandomWordGenerator />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="max-w-2xl mx-auto grid grid-cols-2 gap-6"
-        >
-          <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl border border-border/50">
-            <h3 className="text-lg font-semibold mb-3">Easy to Extend</h3>
-            <p className="text-sm text-muted-foreground">
-              Add your own React components and integrate them seamlessly into your slides.
-            </p>
-          </div>
-          <div className="bg-card/50 backdrop-blur-sm p-6 rounded-xl border border-border/50">
-            <h3 className="text-lg font-semibold mb-3">Interactive Features</h3>
-            <p className="text-sm text-muted-foreground">
-              Create engaging presentations with custom interactive elements.
-            </p>
+// To change password programmatically
+localStorage.setItem('slides_password', 'new_password');`}</code>
+            </pre>
+            
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const modalRoot = document.createElement('div');
+                modalRoot.id = 'modal-root';
+                document.body.appendChild(modalRoot);
+                
+                const root = createRoot(modalRoot);
+                
+                const handleSubmit = (newPassword: string) => {
+                  localStorage.setItem('slides_password', newPassword);
+                  localStorage.removeItem('slides_authenticated'); // Reset authentication state
+                  root.unmount();
+                  document.body.removeChild(modalRoot);
+                  window.location.reload();
+                };
+                
+                const handleCancel = () => {
+                  root.unmount();
+                  document.body.removeChild(modalRoot);
+                };
+                
+                root.render(
+                  <SetPasswordModal onSubmit={handleSubmit} onCancel={handleCancel} />
+                );
+              }}
+              className="px-6 py-3 bg-primary text-primary-foreground rounded-lg 
+                       flex items-center gap-2 font-medium mx-auto"
+            >
+              <Lock className="w-4 h-4" />
+              Set New Password
+            </motion.button>
           </div>
         </motion.div>
 
@@ -949,7 +970,7 @@ export const slides = [
     id: 10,
     content: (
       <div className="space-y-12 text-center">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           This slide is for good luck
         </motion.h2>
         
@@ -971,7 +992,7 @@ export const slides = [
     id: 11,
     content: (
       <div className="space-y-12">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Embed Content
         </motion.h2>
 
@@ -1040,7 +1061,7 @@ export const slides = [
     id: 12,
     content: (
       <div className="space-y-12">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           How to Contribute
         </motion.h2>
 
@@ -1083,7 +1104,7 @@ npm run dev`}</code>
     id: 13,
     content: (
       <div className="space-y-12">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Join Our Community
         </motion.h2>
 
@@ -1115,7 +1136,7 @@ npm run dev`}</code>
     id: 14,
     content: ({ scrollEnabled = false, setScrollEnabled }: SlideProps) => (
       <div className="space-y-12">
-        <motion.h2 {...fadeInUp} className="text-4xl font-bold text-center bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text">
+        <motion.h2 {...fadeInUp} className={cn("text-4xl font-bold", titleGradientClass)}>
           Scroll Control
         </motion.h2>
         
@@ -1195,7 +1216,7 @@ npm run dev`}</code>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold bg-gradient-to-r from-primary to-blue-600 text-transparent bg-clip-text"
+          className={cn("text-5xl font-bold", titleGradientClass)}
         >
           Start Creating!
         </motion.h2>
@@ -1228,3 +1249,15 @@ npm run dev`}</code>
     background: 'linear-gradient(to right, hsl(var(--background)), hsl(var(--card)))',
   }
 ];
+
+// Update any dynamic slide titles
+const createSlideContent = (title: string, content: React.ReactNode) => (
+  <div className="relative h-screen flex items-center justify-center">
+    <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto">
+      <h2 className={cn("text-4xl font-bold mb-8", titleGradientClass)}>
+        {title}
+      </h2>
+      {content}
+    </motion.div>
+  </div>
+);

@@ -16,6 +16,7 @@ A presentation framework built by developers, for developers. Create stunning pr
 - 🎨 Beautiful animations powered by Framer Motion
 - 🌓 Dark/Light mode with a fun toggle
 - ⌨️ Keyboard navigation (arrow keys & spacebar)
+- 📱 Quick slide navigation and persistent slide position
 - 📱 Responsive design
 - 🎮 Interactive elements
 - 🎆 Confetti celebrations!
@@ -222,5 +223,23 @@ See FireSlides in action with these demo presentations:
 
 > 💡 These examples show how FireSlides can be used for both technical documentation and educational content, making presentations more interactive and engaging!
 
----
-```
+## 🔒 Password Protection
+
+FireSlides includes built-in password protection for your presentations:
+
+### Default Setup
+- Default password is 'none'
+- Can be changed via the "Set New Password" button in the presentation
+- Password is stored in localStorage
+- Once authenticated, stays authenticated until password is changed
+
+### Programmatic Setup
+
+## 🎮 Navigation
+
+FireSlides offers multiple ways to navigate through your presentation:
+
+- ⬅️ ➡️ Arrow keys for previous/next slide
+- 🔢 Direct slide number input (bottom left corner)
+- 🔄 Persistent slide position (survives page refresh)
+- ⌨️ Spacebar for next slide
